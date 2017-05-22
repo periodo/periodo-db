@@ -1,17 +1,16 @@
 {
   "name": "periodo-db",
   "version": "1.0.0",
+  "description": "gazetteer database for periodo data",
+  "main": "index.js",
   "dependencies": {
     "bounding-box-overlap-test": "^1.0.0",
     "duplexify": "^3.5.0",
     "geojson-bbox": "0.0.0",
-    "hyperdrive": "^9.2.8",
     "hyperdrive-index": "^2.0.0",
     "hyperkv": "^2.0.3",
     "once": "^1.4.0",
-    "pump": "^1.0.2",
     "pumpify": "^1.3.5",
-    "shasum": "^1.0.2",
     "split2": "^2.1.1",
     "subleveldown": "^2.1.0",
     "through2": "^2.0.3",
@@ -22,5 +21,10 @@
     "hyperdrive": "^9.2.8",
     "hyperlog": "^4.12.1",
     "level": "^1.6.0"
-  }
+  },
+  "keywords": [
+    "periodo",
+    "gazetteer"
+  ],
+  "license": "public domain"
 }
