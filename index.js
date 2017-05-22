@@ -52,7 +52,7 @@ function Query (opts) {
   })
 }
 
-Query.prototype.list = function (q) {
+Query.prototype.list = function (opts) {
   var test = function () { return false }
   if (q && q.bbox) {
     return this._bboxList(q.bbox)
