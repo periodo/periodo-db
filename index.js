@@ -84,3 +84,7 @@ Query.prototype.load = function () {
     }
   }
 }
+
+Query.prototype.geometry = function (n) {
+  return this.archive.createReadStream('g/' + n)
+}
