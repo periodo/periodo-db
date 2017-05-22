@@ -11,6 +11,8 @@ var pq = pquery({
 })
 pq.list(process.argv.slice(2).join(' '))
   .pipe(to.obj(function (row, enc, next) {
-    console.log(row)
+    Object.keys(row.values).forEach(function (key) {
+      console.log(row.values[key].value)
+    })
     next()
   }))
