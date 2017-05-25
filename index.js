@@ -9,6 +9,8 @@ var sub = require('subleveldown')
 var bbox = require('geojson-bbox')
 var once = require('once')
 var overlap = require('bounding-box-overlap-test')
+var inherits = require('inherits')
+var EventEmitter = require('events').EventEmitter
 
 var tmpa = [[0,0],[0,0]]
 var tmpb = [[0,0],[0,0]]
@@ -25,6 +27,7 @@ function overlapWsen (a, b) {
 }
 
 module.exports = Query
+inherits(Query, EventEmitter)
 
 function Query (opts) {
   var self = this
@@ -32,6 +35,9 @@ function Query (opts) {
   self.db = opts.db
   self.log = opts.log
   self.kv = hyperkv({ db: self.db, log: self.log })
+  self.kv.on('put', function (key, value) {
+    self.emit('add', value)
+  })
   self.archive = opts.archive
   self.bboxdb = sub(self.db, 'b', { valueEncoding: 'json' })
   self.drivedex = hdi({
@@ -158,7 +164,10 @@ Query.prototype.load = function () {
     if (!row.properties || row.properties.id === undefined) return next()
     if (typeof row.geometry === 'object') {
       var w = self.archive.createWriteStream('g/' + row.properties.id)
-      w.once('finish', function () { next() })
+      w.once('finish', function () {
+        self.emit('add', row)
+        next()
+      })
       w.once('error', next)
       w.end(JSON.stringify(row.geometry))
     } else {

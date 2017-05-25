@@ -39,7 +39,7 @@ Create a new periodo-db instance `p` from:
 
 * `opts.archive` - [hyperdrive archive][1]
 * `opts.db` - [levelup instance][2]
-* `opts.log` - [hyperlog instance][3]
+* `opts.log` - [hyperlog instance][3] (must set a valueEncoding of 'json')
 
 [1]: https://npmjs.com/package/hyperdrive
 [2]: https://npmjs.com/package/levelup
@@ -65,6 +65,10 @@ If the search value is a...
 ## var rstream = p.geometry(id)
 
 Load geojson geometry by `id` with the readable stream `rstream`.
+
+## p.on('add', function (feature) {})
+
+Emitted whenever a feature is added.
 
 # install
 
