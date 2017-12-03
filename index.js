@@ -39,6 +39,14 @@ function Query (opts) {
     self.emit('add', value)
   })
   self.archive = opts.archive
+
+  // mute listener warnings
+  if (self.archive.metadata) self.archive.metadata.setMaxListeners(0)
+  if (self.archive.content) self.archive.content.setMaxListeners(0)
+  else self.archive.on('content', function () {
+    self.archive.content.setMaxListeners(0)
+  })
+
   self.bboxdb = sub(self.db, 'b', { valueEncoding: 'json' })
   self.drivedex = hdi({
     archive: self.archive,
