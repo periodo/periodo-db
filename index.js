@@ -58,7 +58,7 @@ function Query (opts) {
   })
 }
 
-Query.prototype.list = function (opts) {
+Query.prototype.list = function (q, opts) {
   var test = function () { return false }
   if (q && q.bbox) {
     return this._bboxList(q.bbox)
